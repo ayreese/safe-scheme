@@ -36,6 +36,22 @@ Resources:
             Path: /get-project
             Method: GET
 
+  deleteProjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/delete-project.deleteProjectHandler
+      Description: Delete user projects function
+      Policies:
+        # Same policy for DynamoDB CRUD operations
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProjectsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /delete-project
+            Method: DELETE
+
   ProjectsTable:
     Type: AWS::DynamoDB::Table
     Properties:
